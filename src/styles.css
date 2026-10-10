@@ -1,7 +1,96 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-anton: 'Anton', sans-serif;
+  --font-space: 'Space Mono', monospace;
+}
+
+@layer components {
+  /* default bg */
+  .theme-manga {
+    @apply bg-white text-black font-space transition-colors duration-700;
+    background-image: radial-gradient(circle, #000 1.5px, transparent 2px);
+    background-size: 12px 12px;
+  }
+
+  /*  this trigger at 100% */
+  .theme-neon {
+    @apply bg-zinc-950 text-white font-space transition-colors duration-700;
+    background-image: radial-gradient(
+      ellipse at top,
+      var(--color-fuchsia-950) 0%,
+      var(--color-zinc-950) 50%,
+      var(--color-zinc-950) 100%
+    );
+  }
+
+  /* --- cards --- */
+  .card-brutal {
+    @apply border-4 border-black bg-white p-8 transition-all duration-300;
+    box-shadow: 8px 8px 0px 0px #000;
+  }
+
+  .card-brutal:hover {
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 12px 12px 0px 0px #000;
+  }
+
+  .card-neon {
+    @apply border-4 border-fuchsia-500 bg-black/85 p-8 backdrop-blur-md transition-all duration-300;
+    box-shadow: 8px 8px 0px 0px var(--color-fuchsia-500);
+  }
+
+  .card-neon:hover {
+    @apply -translate-x-1 -translate-y-1;
+    box-shadow: 12px 12px 0px 0px var(--color-cyan-400);
+  }
+
+  /* --- Interactive Grid Items --- */
+  .grid-item-brutal {
+    @apply border-4 border-black p-4 text-center font-bold transition-colors cursor-pointer hover:bg-black hover:text-white;
+  }
+
+  .grid-item-neon {
+    @apply border-4 border-fuchsia-500 p-4 text-center font-bold transition-colors cursor-pointer hover:bg-cyan-400 hover:text-black;
+  }
+
+  .meter-neon-glow {
+    @apply text-fuchsia-500 scale-110;
+    text-shadow: 0 0 15px var(--color-fuchsia-500);
+  }
+
+  .prose-mob {
+    @apply prose max-w-none font-space;
+  }
+
+  .prose-mob h1,
+  .prose-mob h2,
+  .prose-mob h3 {
+    @apply font-anton uppercase tracking-wide m-0;
+  }
+
+  /* 0% to 99% state */
+  .prose-manga {
+    @apply prose-mob prose-zinc text-black;
+  }
+  .prose-manga h1,
+  .prose-manga h2,
+  .prose-manga h3 {
+    @apply text-black;
+  }
+
+  /* 100% Explosion State */
+  .prose-neon {
+    @apply prose-mob prose-invert text-zinc-200;
+  }
+  .prose-neon h1,
+  .prose-neon h2,
+  .prose-neon h3 {
+    @apply text-cyan-400;
+    text-shadow:
+      0 0 15px var(--color-cyan-400),
+      0 0 30px var(--color-cyan-400);
+  }
 }
