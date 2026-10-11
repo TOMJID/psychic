@@ -1,3 +1,4 @@
+import PsychicHud from '#/components/PsychicHud'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({ component: App })
@@ -5,7 +6,8 @@ export const Route = createFileRoute('/')({ component: App })
 function App() {
   return (
     <main className="page-wrap px-4 pb-8 pt-14">
-      <div>
+      <div className="min-h-[200vh]">
+        <PsychicHud progress={100} isExploded={false} onReset={() => {}} />
         <h1>hello world!</h1>
       </div>
     </main>

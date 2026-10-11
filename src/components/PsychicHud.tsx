@@ -31,6 +31,24 @@ const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
           </div>
         </div>
       )}
+
+      {/* bottom stress bar */}
+      <div
+        className={`fixed bottom-0 left-0 w-full h-3 z-50 transition-colors duration-500 ${
+          isExploded
+            ? 'bg-black border-b border-red-600'
+            : 'bg-zinc-200 border-b-2 border-black'
+        }`}
+      >
+        <div
+          className={`h-full transition-all duration-150 ease-out ${
+            isExploded
+              ? 'bg-red-600 shadow-[0_0_15px_var(--color-red-600)]'
+              : 'bg-black'
+          }`}
+          style={{ width: `${displayProgress}%` }}
+        />
+      </div>
     </>
   )
 }
