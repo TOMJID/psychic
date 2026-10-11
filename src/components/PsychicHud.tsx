@@ -49,6 +49,31 @@ const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
           style={{ width: `${displayProgress}%` }}
         />
       </div>
+
+      {/* Stress Meter */}
+      <div className="fixed top-6 right-6 text-right z-50">
+        <div
+          className={`font-anton text-3xl md:text-5xl transition-all duration-300 ${
+            isExploded ? 'meter-neon-glow' : 'text-black'
+          }`}
+          style={{ WebkitTextStroke: isExploded ? 'none' : '2px white' }}
+        >
+          {displayProgress}%
+        </div>
+        {isExploded && (
+          <div className="flex flex-col items-end gap-2 mt-2">
+            <div className="inline-block bg-red-600 text-white px-3 py-1 font-bold animate-pulse uppercase tracking-widest text-sm shadow-[0_0_10px_var(--color-red-600)]">
+              Development 100%
+            </div>
+            <button
+              onClick={onReset}
+              className="text-xs text-red-400 hover:text-orange-400 underline cursor-pointer font-bold bg-black/60 px-2 py-1 rounded-sm backdrop-blur-xs"
+            >
+              [ Suppress Power ]
+            </button>
+          </div>
+        )}
+      </div>
     </>
   )
 }
