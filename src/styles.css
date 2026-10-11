@@ -8,25 +8,45 @@
 }
 
 @layer components {
-  /* default bg */
+  /* default Themes  */
   .theme-manga {
     @apply bg-white text-black font-space transition-colors duration-700;
     background-image: radial-gradient(circle, #000 1.5px, transparent 2px);
     background-size: 12px 12px;
   }
 
-  /*  this trigger at 100% */
+  /* 100% state theme */
   .theme-neon {
-    @apply bg-zinc-950 text-white font-space transition-colors duration-700;
-    background-image: radial-gradient(
-      ellipse at top,
-      var(--color-fuchsia-950) 0%,
-      var(--color-zinc-950) 50%,
-      var(--color-zinc-950) 100%
-    );
+    @apply bg-zinc-950 text-white font-space transition-colors duration-700 relative overflow-x-hidden;
+    background-image:
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(239, 68, 68, 0.4) 1.5px,
+        transparent 2px
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(249, 115, 22, 0.35) 2px,
+        transparent 2.5px
+      ),
+      radial-gradient(
+        ellipse at top,
+        var(--color-red-950) 0%,
+        var(--color-zinc-950) 70%,
+        var(--color-zinc-950) 100%
+      );
+    background-size:
+      24px 24px,
+      40px 40px,
+      100% 100%;
+    animation: aura-drift 8s infinite linear;
   }
 
-  /* --- cards --- */
+  .psychic-shake {
+    animation: psychic-bg-shake 0.25s infinite alternate;
+  }
+
+  /* UI Cards */
   .card-brutal {
     @apply border-4 border-black bg-white p-8 transition-all duration-300;
     box-shadow: 8px 8px 0px 0px #000;
@@ -38,59 +58,148 @@
   }
 
   .card-neon {
-    @apply border-4 border-fuchsia-500 bg-black/85 p-8 backdrop-blur-md transition-all duration-300;
-    box-shadow: 8px 8px 0px 0px var(--color-fuchsia-500);
+    @apply border-4 border-red-600 bg-black/90 p-8 backdrop-blur-md transition-all duration-300;
+    box-shadow: 8px 8px 0px 0px var(--color-red-600);
+    animation: static-flicker 0.4s infinite alternate;
   }
 
   .card-neon:hover {
     @apply -translate-x-1 -translate-y-1;
-    box-shadow: 12px 12px 0px 0px var(--color-cyan-400);
+    box-shadow: 12px 12px 0px 0px var(--color-orange-500);
   }
 
-  /* --- Interactive Grid Items --- */
+  /*  Interactive Grid Items */
   .grid-item-brutal {
     @apply border-4 border-black p-4 text-center font-bold transition-colors cursor-pointer hover:bg-black hover:text-white;
   }
 
   .grid-item-neon {
-    @apply border-4 border-fuchsia-500 p-4 text-center font-bold transition-colors cursor-pointer hover:bg-cyan-400 hover:text-black;
+    @apply border-4 border-red-600 p-4 text-center font-bold transition-colors cursor-pointer hover:bg-red-600 hover:text-black;
   }
 
+  /*  Glows & Badges  */
   .meter-neon-glow {
-    @apply text-fuchsia-500 scale-110;
-    text-shadow: 0 0 15px var(--color-fuchsia-500);
+    @apply text-red-500 scale-110;
+    text-shadow:
+      0 0 15px var(--color-red-600),
+      0 0 30px var(--color-red-600);
+    animation: shake 0.15s infinite;
   }
 
-  .prose-mob {
-    @apply prose max-w-none font-space;
+  .badge-brutal {
+    @apply inline-block bg-black text-white px-4 py-2 font-bold mb-6;
   }
 
-  .prose-mob h1,
-  .prose-mob h2,
-  .prose-mob h3 {
+  .badge-neon {
+    @apply inline-block bg-red-600 text-white px-4 py-2 font-bold mb-6;
+    animation: glitch-blink 0.2s infinite;
+  }
+
+  /*  TYPOGRAPHY (PROSE) STYLES  */
+  .prose-manga {
+    @apply prose prose-zinc max-w-none font-space text-black;
+  }
+
+  .prose-neon {
+    @apply prose prose-invert max-w-none font-space text-zinc-200;
+  }
+
+  .prose-manga h1,
+  .prose-manga h2,
+  .prose-manga h3,
+  .prose-neon h1,
+  .prose-neon h2,
+  .prose-neon h3 {
     @apply font-anton uppercase tracking-wide m-0;
   }
 
-  /* 0% to 99% state */
-  .prose-manga {
-    @apply prose-mob prose-zinc text-black;
-  }
   .prose-manga h1,
   .prose-manga h2,
   .prose-manga h3 {
     @apply text-black;
   }
 
-  /* 100% Explosion State */
-  .prose-neon {
-    @apply prose-mob prose-invert text-zinc-200;
-  }
   .prose-neon h1,
   .prose-neon h2,
   .prose-neon h3 {
-    @apply text-cyan-400;
+    @apply text-red-500;
     text-shadow:
-      0 0 15px var(--color-cyan-400),
-      0 0 30px var(--color-cyan-400);
+      0 0 15px var(--color-red-600),
+      0 0 30px var(--color-red-800);
+  }
+
+  /*  Floating Psychic Debris  */
+  .psychic-debris {
+    @apply absolute pointer-events-none select-none font-anton opacity-35;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+
+  /* Animations */
+  @keyframes psychic-bg-shake {
+    0% {
+      transform: translate(0, 0) skew(0deg);
+    }
+    100% {
+      transform: translate(2px, -1px) skew(0.5deg);
+    }
+  }
+
+  @keyframes aura-drift {
+    0% {
+      background-position:
+        0px 0px,
+        0px 0px,
+        50% 0%;
+    }
+    100% {
+      background-position:
+        24px 48px,
+        -40px 80px,
+        50% 0%;
+    }
+  }
+
+  @keyframes static-flicker {
+    0% {
+      border-color: var(--color-red-600);
+    }
+    50% {
+      border-color: var(--color-orange-500);
+    }
+    100% {
+      border-color: var(--color-red-600);
+    }
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1.1);
+    }
+    25% {
+      transform: translate(-2px, 2px) scale(1.1);
+    }
+    50% {
+      transform: translate(2px, -1px) scale(1.12);
+    }
+    75% {
+      transform: translate(-1px, -1px) scale(1.1);
+    }
+  }
+
+  @keyframes glitch-blink {
+    0% {
+      opacity: 1;
+      background-color: var(--color-red-600);
+    }
+    50% {
+      opacity: 0.85;
+      background-color: var(--color-orange-600);
+    }
+    100% {
+      opacity: 1;
+      background-color: var(--color-red-600);
+    }
   }
 }
