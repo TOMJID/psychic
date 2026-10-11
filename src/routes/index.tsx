@@ -38,13 +38,19 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const handleReset = () => {
+    setIsExploded(false)
+    setProgress(0)
+    localStorage.removeItem('exploded')
+  }
+
   return (
     <main className="page-wrap px-4 pb-8 pt-14">
       <div className="min-h-[200vh]">
         <PsychicHud
           progress={progress}
           isExploded={isExploded}
-          onReset={() => {}}
+          onReset={handleReset}
         />
         <Hero isExploded={isExploded} />
       </div>
