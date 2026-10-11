@@ -1,3 +1,4 @@
+import Hero from '#/components/Hero'
 import PsychicHud from '#/components/PsychicHud'
 import { createFileRoute } from '@tanstack/react-router'
 
@@ -8,7 +9,7 @@ function App() {
     <main className="page-wrap px-4 pb-8 pt-14">
       <div className="min-h-[200vh]">
         <PsychicHud progress={100} isExploded={false} onReset={() => {}} />
-        <h1>hello world!</h1>
+        <Hero isExploded={false} />
       </div>
     </main>
   )
