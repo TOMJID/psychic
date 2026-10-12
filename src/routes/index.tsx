@@ -1,5 +1,6 @@
 import Hero from '#/components/Hero'
 import PsychicHud from '#/components/PsychicHud'
+import Skills from '#/components/Skills'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
@@ -53,6 +54,7 @@ function App() {
           onReset={handleReset}
         />
         <Hero isExploded={isExploded} />
+        <Skills isExploded={isExploded} />
       </div>
     </main>
   )
