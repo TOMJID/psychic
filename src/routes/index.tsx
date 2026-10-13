@@ -1,3 +1,4 @@
+import Contact from '#/components/Contact'
 import Hero from '#/components/Hero'
 import Projects from '#/components/Projects'
 import PsychicHud from '#/components/PsychicHud'
@@ -57,6 +58,7 @@ function App() {
         <Hero isExploded={isExploded} />
         <Skills isExploded={isExploded} />
         <Projects isExploded={isExploded} />
+        <Contact isExploded={isExploded} />
       </div>
     </main>
   )
