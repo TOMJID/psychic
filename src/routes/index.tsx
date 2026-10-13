@@ -1,4 +1,5 @@
 import Hero from '#/components/Hero'
+import Projects from '#/components/Projects'
 import PsychicHud from '#/components/PsychicHud'
 import Skills from '#/components/Skills'
 import { createFileRoute } from '@tanstack/react-router'
@@ -55,6 +56,7 @@ function App() {
         />
         <Hero isExploded={isExploded} />
         <Skills isExploded={isExploded} />
+        <Projects isExploded={isExploded} />
       </div>
     </main>
   )
