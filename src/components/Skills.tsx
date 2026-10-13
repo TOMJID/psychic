@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 interface SkillsProps {
   isExploded: boolean
 }
@@ -20,7 +22,12 @@ const SKILLS = [
   'REST APIs',
   'GraphQL',
 ]
+
 const Skills = ({ isExploded }: SkillsProps) => {
+  const [showAll, setShowAll] = useState(false)
+
+  const displayedSkills = showAll ? SKILLS : SKILLS.slice(0, 4)
+
   return (
     <section
       className={
@@ -34,8 +41,9 @@ const Skills = ({ isExploded }: SkillsProps) => {
       >
         Arsenal
       </h2>
+
       <div className="not-prose grid grid-cols-1 md:grid-cols-2 gap-6 text-xl">
-        {SKILLS.map((skill) => (
+        {displayedSkills.map((skill) => (
           <div
             key={skill}
             className={isExploded ? 'grid-item-neon' : 'grid-item-brutal'}
@@ -44,6 +52,19 @@ const Skills = ({ isExploded }: SkillsProps) => {
           </div>
         ))}
       </div>
+
+      {SKILLS.length > 4 && (
+        <div className="mt-8 flex justify-center not-prose">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className={`px-8 py-3 text-xl uppercase tracking-widest ${
+              isExploded ? 'grid-item-neon' : 'grid-item-brutal'
+            }`}
+          >
+            {showAll ? 'Collapse' : 'Show More'}
+          </button>
+        </div>
+      )}
     </section>
   )
 }
