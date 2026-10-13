@@ -6,7 +6,22 @@ import Skills from '#/components/Skills'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
-export const Route = createFileRoute('/')({ component: App })
+export const Route = createFileRoute('/')({
+  head: () => ({
+    meta: [
+      {
+        title: 'Psychic',
+      },
+      {
+        name: 'description',
+        content:
+          'Portfolio of Tomjid, a web developer specializing in Javascript and TypeScript.',
+      },
+    ],
+  }),
+
+  component: App,
+})
 
 function App() {
   const [progress, setProgress] = useState(0)
