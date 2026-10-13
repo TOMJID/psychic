@@ -3,36 +3,38 @@ import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-(--line) bg-(--header-bg) px-4 backdrop-blur-lg">
-      <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4">
-        <h2 className="m-0 shrink-0 text-base font-semibold tracking-tight">
+    <header className="sticky top-0 z-50 border-b-4 border-black bg-white shadow-[0_4px_0_0_#000]">
+      <nav className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-4 px-6 py-4">
+        {/* Logo / Brand */}
+        <h2 className="m-0 font-anton text-2xl uppercase tracking-widest">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 rounded-full border border-(--chip-line) bg-(--chip-bg) px-3 py-1.5 text-sm text-(--sea-ink) no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+            className="inline-block bg-black px-4 py-1.5 text-white transition-colors hover:bg-red-600 no-underline"
           >
-            <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)]" />
             Psychic
           </Link>
         </h2>
 
-        <div className="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-0 sm:w-auto sm:flex-nowrap sm:pb-0">
+        {/* Navigation Links */}
+        <div className="flex flex-1 items-center gap-4 font-space font-bold uppercase md:ml-8">
           <Link
             to="/"
-            className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
+            className="border-2 border-transparent px-3 py-1 transition-all hover:border-black"
+            activeProps={{ className: 'border-black bg-black text-white' }}
           >
             Home
           </Link>
           <Link
             to="/about"
-            className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
+            className="border-2 border-transparent px-3 py-1 transition-all hover:border-black"
+            activeProps={{ className: 'border-black bg-black text-white' }}
           >
             About
           </Link>
         </div>
 
-        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+        {/* Theme Toggle (Wrapped in a brutalist button style) */}
+        <div className="ml-auto flex items-center border-2 border-black bg-white p-1 shadow-[2px_2px_0_0_#000] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#000]">
           <ThemeToggle />
         </div>
       </nav>
