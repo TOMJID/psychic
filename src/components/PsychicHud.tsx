@@ -46,7 +46,9 @@ const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
               ? 'bg-red-600 shadow-[0_0_15px_var(--color-red-600)]'
               : 'bg-black'
           }`}
-          style={{ width: `${displayProgress}%` }}
+          style={{
+            width: `${progress}%`,
+          }} /* Uses pure progress so it always tracks scroll */
         />
       </div>
 
@@ -58,7 +60,7 @@ const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
           }`}
           style={{ WebkitTextStroke: isExploded ? 'none' : '2px white' }}
         >
-          {displayProgress}%
+          {displayProgress}% {/* Uses displayProgress so it locks at 100% */}
         </div>
         {isExploded && (
           <div className="flex flex-col items-end gap-2 mt-2">
