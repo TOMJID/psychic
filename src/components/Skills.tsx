@@ -1,8 +1,5 @@
+import type { isExplodedProps } from '#/types/isExploded'
 import { useState } from 'react'
-
-interface SkillsProps {
-  isExploded: boolean
-}
 
 const SKILLS = [
   'JavaScript',
@@ -23,7 +20,7 @@ const SKILLS = [
   'GraphQL',
 ]
 
-const Skills = ({ isExploded }: SkillsProps) => {
+const Skills = ({ isExploded }: isExplodedProps) => {
   const [showAll, setShowAll] = useState(false)
 
   const displayedSkills = showAll ? SKILLS : SKILLS.slice(0, 4)

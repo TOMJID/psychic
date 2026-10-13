@@ -1,8 +1,6 @@
-interface ContactProps {
-  isExploded: boolean
-}
+import type { isExplodedProps } from '#/types/isExploded'
 
-const Contact = ({ isExploded }: ContactProps) => {
+const Contact = ({ isExploded }: isExplodedProps) => {
   const buttonStyle = isExploded
     ? 'grid-item-neon px-6'
     : 'grid-item-brutal px-6'

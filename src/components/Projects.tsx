@@ -1,6 +1,4 @@
-interface ProjectsProps {
-  isExploded: boolean
-}
+import type { isExplodedProps } from '#/types/isExploded'
 
 const PROJECTS = [
   {
@@ -23,7 +21,7 @@ const PROJECTS = [
   },
 ]
 
-const Projects = ({ isExploded }: ProjectsProps) => {
+const Projects = ({ isExploded }: isExplodedProps) => {
   return (
     <section
       className={
