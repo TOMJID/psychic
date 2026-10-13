@@ -6,7 +6,9 @@ import Skills from '#/components/Skills'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
-export const Route = createFileRoute('/')({ component: App })
+export const Route = createFileRoute('/')({
+  component: App,
+})
 
 function App() {
   const [progress, setProgress] = useState(0)
@@ -15,7 +17,6 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('exploded') === 'true') {
       setIsExploded(true)
-      setProgress(100)
     }
 
     const handleScroll = () => {
@@ -26,12 +27,11 @@ function App() {
       const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100
       const current = Math.min(100, Math.max(0, Math.floor(scrollPercent)))
 
-      if (current >= 100 || localStorage.getItem('exploded') === 'true') {
+      setProgress(current)
+
+      if (current >= 100) {
         setIsExploded(true)
-        setProgress(100)
         localStorage.setItem('exploded', 'true')
-      } else {
-        setProgress((prev) => (prev === 100 ? 100 : current))
       }
     }
 

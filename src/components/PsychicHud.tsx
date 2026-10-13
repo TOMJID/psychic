@@ -5,7 +5,9 @@ interface PsychicHudProps {
 }
 
 const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
+  // displayProgress locks text at 100, raw `progress` goes to the bottom bar
   const displayProgress = isExploded ? 100 : progress
+
   return (
     <>
       {/* Debris Overlay for 100% */}
@@ -32,36 +34,35 @@ const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
         </div>
       )}
 
-      {/* bottom stress bar */}
+      {/* Bottom stress bar */}
       <div
         className={`fixed bottom-0 left-0 w-full h-3 z-50 transition-colors duration-500 ${
           isExploded
-            ? 'bg-black border-b border-red-600'
-            : 'bg-zinc-200 border-b-2 border-black'
+            ? 'bg-black dark:bg-zinc-100 border-t border-red-600'
+            : 'bg-zinc-200 dark:bg-zinc-800 border-t-2 border-black dark:border-zinc-300'
         }`}
       >
         <div
           className={`h-full transition-all duration-150 ease-out ${
             isExploded
               ? 'bg-red-600 shadow-[0_0_15px_var(--color-red-600)]'
-              : 'bg-black'
+              : 'bg-black dark:bg-zinc-300'
           }`}
-          style={{
-            width: `${progress}%`,
-          }} /* Uses pure progress so it always tracks scroll */
+          style={{ width: `${progress}%` }}
         />
       </div>
 
       {/* Stress Meter */}
-      <div className="fixed top-6 right-6 text-right z-50">
+      <div className="fixed top-6 right-6 text-right z-50 pointer-events-auto">
         <div
           className={`font-anton text-3xl md:text-5xl transition-all duration-300 ${
-            isExploded ? 'meter-neon-glow' : 'text-black'
+            isExploded ? 'meter-neon-glow' : 'text-black dark:text-white'
           }`}
-          style={{ WebkitTextStroke: isExploded ? 'none' : '2px white' }}
+          style={{ WebkitTextStroke: isExploded ? 'none' : '2px transparent' }}
         >
-          {displayProgress}% {/* Uses displayProgress so it locks at 100% */}
+          {displayProgress}%
         </div>
+
         {isExploded && (
           <div className="flex flex-col items-end gap-2 mt-2">
             <div className="inline-block bg-red-600 text-white px-3 py-1 font-bold animate-pulse uppercase tracking-widest text-sm shadow-[0_0_10px_var(--color-red-600)]">
@@ -69,7 +70,7 @@ const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
             </div>
             <button
               onClick={onReset}
-              className="text-xs text-red-400 hover:text-orange-400 underline cursor-pointer font-bold bg-black/60 px-2 py-1 rounded-sm backdrop-blur-xs"
+              className="text-xs text-red-400 dark:text-red-600 hover:text-orange-400 dark:hover:text-orange-600 underline cursor-pointer font-bold bg-black/60 dark:bg-white/60 px-2 py-1 rounded-sm backdrop-blur-xs transition-colors"
             >
               [ Suppress Power ]
             </button>
