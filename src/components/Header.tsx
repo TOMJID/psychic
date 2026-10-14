@@ -27,7 +27,7 @@ export default function Header() {
           >
             Home
           </Link>
-          <Link
+          {/* <Link
             to="/about"
             className="border-2 border-transparent px-3 py-1 transition-all hover:border-black dark:hover:border-zinc-300"
             activeProps={{
@@ -36,7 +36,7 @@ export default function Header() {
             }}
           >
             About
-          </Link>
+          </Link> */}
         </div>
 
         {/* Theme Toggle */}
