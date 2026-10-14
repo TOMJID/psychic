@@ -301,3 +301,101 @@
     }
   }
 }
+
+/* ========================================
+   CUSTOM SCROLLBAR — PSYCHIC
+======================================== */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ef4444 #e4e4e7;
+}
+
+.dark * {
+  scrollbar-color: #ef4444 #18181b;
+}
+
+/* Chromium, Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e4e4e7;
+  border-left: 2px solid #000;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #18181b;
+  border-left-color: #d4d4d8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ef4444;
+  border: 2px solid #000;
+  border-radius: 0;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  border-color: #d4d4d8;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f97316;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #dc2626;
+}
+
+/* Horizontal scrollbars */
+::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+::-webkit-scrollbar-track:horizontal {
+  border-left: none;
+  border-top: 2px solid #000;
+}
+
+.dark ::-webkit-scrollbar-track:horizontal {
+  border-top-color: #d4d4d8;
+}
+
+/* Corner where horizontal and vertical scrollbars meet */
+::-webkit-scrollbar-corner {
+  background: #e4e4e7;
+}
+
+.dark ::-webkit-scrollbar-corner {
+  background: #18181b;
+}
+
+/* Neon theme */
+.theme-neon {
+  scrollbar-color: #ef4444 #18181b;
+}
+
+.theme-neon::-webkit-scrollbar-track {
+  background: #18181b;
+}
+
+.theme-neon::-webkit-scrollbar-thumb {
+  background: #ef4444;
+  border-color: #000;
+  box-shadow: inset 0 0 4px rgb(255 255 255 / 15%);
+}
+
+.theme-neon::-webkit-scrollbar-thumb:hover {
+  background: #f97316;
+  box-shadow: 0 0 8px rgb(239 68 68 / 60%);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  ::-webkit-scrollbar-thumb {
+    transition: none;
+  }
+}

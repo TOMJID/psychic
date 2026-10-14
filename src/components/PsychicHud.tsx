@@ -53,7 +53,7 @@ const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
       </div>
 
       {/* Stress Meter */}
-      <div className="fixed top-4 right-6 text-right z-50 pointer-events-auto">
+      <div className="fixed top-6 right-6 text-right z-50 pointer-events-auto">
         <div
           className={`font-anton text-3xl md:text-5xl transition-all duration-300 ${
             isExploded ? 'meter-neon-glow' : 'text-black dark:text-white'
