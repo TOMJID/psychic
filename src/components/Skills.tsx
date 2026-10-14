@@ -2,22 +2,12 @@ import type { isExplodedProps } from '#/types/isExploded'
 import { useState } from 'react'
 
 const SKILLS = [
-  'JavaScript',
-  'TypeScript',
-  'React',
-  'Next.js',
-  'Node.js',
-  'Express',
-  'MongoDB',
-  'SQL',
-  'HTML',
-  'CSS',
-  'Tailwind CSS',
-  'Bootstrap',
-  'Git',
-  'GitHub',
-  'REST APIs',
-  'GraphQL',
+  'Skills 1',
+  'Skills 2',
+  'Skills 3',
+  'Skills 4',
+  'Skills 5',
+  'Skills 6',
 ]
 
 const Skills = ({ isExploded }: isExplodedProps) => {

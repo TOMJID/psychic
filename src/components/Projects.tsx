@@ -2,22 +2,24 @@ import type { isExplodedProps } from '#/types/isExploded'
 
 const PROJECTS = [
   {
-    title: 'click-script',
-    tag: 'VS Code Extension',
-    description:
-      'Custom VS Code Marketplace extension that adds execution buttons to streamline running npm, pnpm, yarn, and bun scripts directly from the editor.',
+    title: 'project 1',
+    tag: 'loren ipsum',
+    description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
   {
-    title: 'FoodHub',
-    tag: 'Next.js • Express • Prisma',
-    description:
-      'Full-stack meal ordering platform featuring relational PostgreSQL schemas, modular API controllers, and Better Auth integration.',
+    title: 'project 1',
+    tag: 'loren ipsum',
+    description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
   {
-    title: 'todo-cli',
-    tag: 'Node.js • TypeScript • Prisma',
-    description:
-      'Interactive command-line task manager utilizing Commander, Inquirer prompts, short UUID displays, and Prisma database actions.',
+    title: 'project 1',
+    tag: 'loren ipsum',
+    description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
+  {
+    title: 'project 1',
+    tag: 'loren ipsum',
+    description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
 ]
 
