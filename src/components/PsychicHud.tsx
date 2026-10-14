@@ -53,7 +53,7 @@ const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
       </div>
 
       {/* Stress Meter */}
-      <div className="fixed top-6 right-6 text-right z-50 pointer-events-auto">
+      <div className="fixed top-4 right-6 text-right z-50 pointer-events-auto">
         <div
           className={`font-anton text-3xl md:text-5xl transition-all duration-300 ${
             isExploded ? 'meter-neon-glow' : 'text-black dark:text-white'
@@ -66,7 +66,7 @@ const PsychicHud = ({ progress, isExploded, onReset }: PsychicHudProps) => {
         {isExploded && (
           <div className="flex flex-col items-end gap-2 mt-2">
             <div className="inline-block bg-red-600 text-white px-3 py-1 font-bold animate-pulse uppercase tracking-widest text-sm shadow-[0_0_10px_var(--color-red-600)]">
-              Development 100%
+              {/* Development 100% */}
             </div>
             <button
               onClick={onReset}
