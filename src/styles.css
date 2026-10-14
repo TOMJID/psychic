@@ -2,95 +2,302 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
+/* wire up tailwind's dark mode to our toggle */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-anton: 'Anton', sans-serif;
   --font-space: 'Space Mono', monospace;
 }
 
+/* scale down shadows on mobile to prevent horizontal scrolling */
+@layer base {
+  :root {
+    --brutal-shadow: 4px;
+    --brutal-shadow-hover: 6px;
+  }
+  @media (min-width: 768px) {
+    :root {
+      --brutal-shadow: 8px;
+      --brutal-shadow-hover: 12px;
+    }
+  }
+}
+
 @layer components {
-  /* default bg */
   .theme-manga {
-    @apply bg-white text-black font-space transition-colors duration-700;
+    @apply bg-white text-black dark:bg-zinc-950 dark:text-zinc-100 font-space transition-all duration-700 ease-in-out;
     background-image: radial-gradient(circle, #000 1.5px, transparent 2px);
     background-size: 12px 12px;
+    /* keeps the background from stretching weirdly on phones */
+    background-attachment: fixed;
   }
 
-  /*  this trigger at 100% */
-  .theme-neon {
-    @apply bg-zinc-950 text-white font-space transition-colors duration-700;
+  .dark .theme-manga {
     background-image: radial-gradient(
-      ellipse at top,
-      var(--color-fuchsia-950) 0%,
-      var(--color-zinc-950) 50%,
-      var(--color-zinc-950) 100%
+      circle,
+      rgba(255, 255, 255, 0.15) 1.5px,
+      transparent 2px
     );
   }
 
-  /* --- cards --- */
+  /* 100% mode: we invert everything so dark mode gets light, light gets dark */
+  .theme-neon {
+    @apply bg-zinc-950 text-white dark:bg-zinc-100 dark:text-zinc-900 font-space transition-all duration-700 ease-in-out relative overflow-x-hidden;
+    background-image:
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(239, 68, 68, 0.4) 1.5px,
+        transparent 2px
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(249, 115, 22, 0.35) 2px,
+        transparent 2.5px
+      ),
+      radial-gradient(
+        ellipse at top,
+        var(--color-red-950) 0%,
+        var(--color-zinc-950) 70%,
+        var(--color-zinc-950) 100%
+      );
+    background-size:
+      24px 24px,
+      40px 40px,
+      100% 100%;
+    background-attachment: fixed;
+    animation: aura-drift 8s infinite linear;
+  }
+
+  .dark .theme-neon {
+    background-image:
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(239, 68, 68, 0.4) 1.5px,
+        transparent 2px
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(249, 115, 22, 0.35) 2px,
+        transparent 2.5px
+      ),
+      radial-gradient(
+        ellipse at top,
+        var(--color-red-200) 0%,
+        var(--color-zinc-100) 70%,
+        var(--color-zinc-100) 100%
+      );
+  }
+
+  .psychic-shake {
+    animation: psychic-bg-shake 0.25s infinite alternate;
+  }
+
   .card-brutal {
-    @apply border-4 border-black bg-white p-8 transition-all duration-300;
-    box-shadow: 8px 8px 0px 0px #000;
+    @apply border-4 border-black dark:border-zinc-300 bg-white dark:bg-zinc-900 p-6 md:p-8 transition-all duration-500 ease-in-out;
+    box-shadow: var(--brutal-shadow) var(--brutal-shadow) 0px 0px #000;
+  }
+
+  .dark .card-brutal {
+    box-shadow: var(--brutal-shadow) var(--brutal-shadow) 0px 0px
+      var(--color-zinc-300);
   }
 
   .card-brutal:hover {
     @apply -translate-x-1 -translate-y-1;
-    box-shadow: 12px 12px 0px 0px #000;
+    box-shadow: var(--brutal-shadow-hover) var(--brutal-shadow-hover) 0px 0px
+      #000;
+  }
+
+  .dark .card-brutal:hover {
+    box-shadow: var(--brutal-shadow-hover) var(--brutal-shadow-hover) 0px 0px
+      var(--color-zinc-300);
   }
 
   .card-neon {
-    @apply border-4 border-fuchsia-500 bg-black/85 p-8 backdrop-blur-md transition-all duration-300;
-    box-shadow: 8px 8px 0px 0px var(--color-fuchsia-500);
+    @apply border-4 border-red-600 bg-black/90 dark:bg-white/90 p-6 md:p-8 backdrop-blur-md transition-all duration-500 ease-in-out;
+    box-shadow: var(--brutal-shadow) var(--brutal-shadow) 0px 0px
+      var(--color-red-600);
+    animation: static-flicker 0.4s infinite alternate;
   }
 
   .card-neon:hover {
     @apply -translate-x-1 -translate-y-1;
-    box-shadow: 12px 12px 0px 0px var(--color-cyan-400);
+    box-shadow: var(--brutal-shadow-hover) var(--brutal-shadow-hover) 0px 0px
+      var(--color-orange-500);
   }
 
-  /* --- Interactive Grid Items --- */
   .grid-item-brutal {
-    @apply border-4 border-black p-4 text-center font-bold transition-colors cursor-pointer hover:bg-black hover:text-white;
+    @apply border-4 border-black dark:border-zinc-300 p-4 text-center font-bold transition-all duration-500 ease-in-out cursor-pointer hover:bg-black dark:hover:bg-zinc-300 hover:text-white dark:hover:text-zinc-950 active:bg-black dark:active:bg-zinc-300 active:text-white dark:active:text-zinc-950;
   }
 
   .grid-item-neon {
-    @apply border-4 border-fuchsia-500 p-4 text-center font-bold transition-colors cursor-pointer hover:bg-cyan-400 hover:text-black;
+    @apply border-4 border-red-600 p-4 text-center font-bold transition-all duration-500 ease-in-out cursor-pointer hover:bg-red-600 hover:text-white active:bg-red-600 active:text-white;
   }
 
   .meter-neon-glow {
-    @apply text-fuchsia-500 scale-110;
-    text-shadow: 0 0 15px var(--color-fuchsia-500);
+    @apply text-red-600 dark:text-red-500 scale-110 transition-all duration-500 ease-in-out;
+    text-shadow:
+      0 0 10px var(--color-red-600),
+      0 0 20px var(--color-red-600);
   }
 
-  .prose-mob {
-    @apply prose max-w-none font-space;
+  @media (min-width: 768px) {
+    .meter-neon-glow {
+      text-shadow:
+        0 0 15px var(--color-red-600),
+        0 0 30px var(--color-red-600);
+      animation: shake 0.15s infinite;
+    }
   }
 
-  .prose-mob h1,
-  .prose-mob h2,
-  .prose-mob h3 {
-    @apply font-anton uppercase tracking-wide m-0;
+  .badge-brutal {
+    @apply inline-block bg-black text-white dark:bg-zinc-300 dark:text-zinc-950 px-4 py-2 font-bold mb-4 md:mb-6 transition-all duration-500 ease-in-out;
   }
 
-  /* 0% to 99% state */
+  .badge-neon {
+    @apply inline-block bg-red-600 text-white px-4 py-2 font-bold mb-4 md:mb-6 transition-all duration-500 ease-in-out;
+    animation: glitch-blink 0.2s infinite;
+  }
+
   .prose-manga {
-    @apply prose-mob prose-zinc text-black;
+    @apply prose dark:prose-invert max-w-none font-space text-black dark:text-zinc-100 transition-all duration-500 ease-in-out;
   }
+
+  /* fixed the typography plugin breaking our mobile width */
+  .prose-neon {
+    @apply prose max-w-none font-space transition-all duration-500 ease-in-out;
+    --tw-prose-body: var(--color-zinc-200);
+    --tw-prose-headings: var(--color-red-500);
+    --tw-prose-bold: var(--color-white);
+  }
+
+  .dark .prose-neon {
+    --tw-prose-body: var(--color-zinc-900);
+    --tw-prose-headings: var(--color-red-600);
+    --tw-prose-bold: var(--color-black);
+  }
+
   .prose-manga h1,
   .prose-manga h2,
-  .prose-manga h3 {
-    @apply text-black;
-  }
-
-  /* 100% Explosion State */
-  .prose-neon {
-    @apply prose-mob prose-invert text-zinc-200;
-  }
+  .prose-manga h3,
   .prose-neon h1,
   .prose-neon h2,
   .prose-neon h3 {
-    @apply text-cyan-400;
+    @apply font-anton uppercase tracking-wide m-0 transition-all duration-500 ease-in-out;
+  }
+
+  .prose-manga h1,
+  .prose-manga h2,
+  .prose-manga h3 {
+    @apply text-black dark:text-zinc-100;
+  }
+
+  .prose-neon h1,
+  .prose-neon h2,
+  .prose-neon h3 {
+    color: var(--color-red-500);
     text-shadow:
-      0 0 15px var(--color-cyan-400),
-      0 0 30px var(--color-cyan-400);
+      0 0 10px var(--color-red-600),
+      0 0 20px var(--color-red-800);
+  }
+
+  .dark .prose-neon h1,
+  .dark .prose-neon h2,
+  .dark .prose-neon h3 {
+    color: var(--color-red-600);
+    text-shadow:
+      0 0 10px var(--color-red-400),
+      0 0 20px var(--color-red-200);
+  }
+
+  @media (min-width: 768px) {
+    .prose-neon h1,
+    .prose-neon h2,
+    .prose-neon h3 {
+      text-shadow:
+        0 0 15px var(--color-red-600),
+        0 0 30px var(--color-red-800);
+    }
+    .dark .prose-neon h1,
+    .dark .prose-neon h2,
+    .dark .prose-neon h3 {
+      text-shadow:
+        0 0 15px var(--color-red-400),
+        0 0 30px var(--color-red-200);
+    }
+  }
+
+  .psychic-debris {
+    @apply absolute pointer-events-none select-none font-anton opacity-35 transition-all duration-700 ease-in-out;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes psychic-bg-shake {
+    0% {
+      transform: translate(0, 0) skew(0deg);
+    }
+    100% {
+      transform: translate(2px, -1px) skew(0.5deg);
+    }
+  }
+
+  @keyframes aura-drift {
+    0% {
+      background-position:
+        0px 0px,
+        0px 0px,
+        50% 0%;
+    }
+    100% {
+      background-position:
+        24px 48px,
+        -40px 80px,
+        50% 0%;
+    }
+  }
+
+  @keyframes static-flicker {
+    0% {
+      border-color: var(--color-red-600);
+    }
+    50% {
+      border-color: var(--color-orange-500);
+    }
+    100% {
+      border-color: var(--color-red-600);
+    }
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1.1);
+    }
+    25% {
+      transform: translate(-2px, 2px) scale(1.1);
+    }
+    50% {
+      transform: translate(2px, -1px) scale(1.12);
+    }
+    75% {
+      transform: translate(-1px, -1px) scale(1.1);
+    }
+  }
+
+  @keyframes glitch-blink {
+    0% {
+      opacity: 1;
+      background-color: var(--color-red-600);
+    }
+    50% {
+      opacity: 0.85;
+      background-color: var(--color-orange-600);
+    }
+    100% {
+      opacity: 1;
+      background-color: var(--color-red-600);
+    }
   }
 }
