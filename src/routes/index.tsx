@@ -15,6 +15,14 @@ function App() {
   const [isExploded, setIsExploded] = useState(false)
 
   useEffect(() => {
+    document.body.dataset.psychicPower = isExploded ? '100' : 'normal'
+
+    return () => {
+      delete document.body.dataset.psychicPower
+    }
+  }, [isExploded])
+
+  useEffect(() => {
     if (localStorage.getItem('exploded') === 'true') {
       setIsExploded(true)
     }

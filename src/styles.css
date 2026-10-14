@@ -25,10 +25,149 @@
 }
 
 @layer components {
+  .psychic-cursor {
+    @apply pointer-events-none fixed left-0 top-0 z-[110] hidden h-8 w-8 md:block;
+    margin: -16px 0 0 -16px;
+    mix-blend-mode: normal;
+    transition: opacity 200ms ease;
+    cursor: none;
+  }
+
+  .psychic-cursor::before {
+    @apply absolute left-1/2 top-1/2 block;
+    content: '';
+    transform: translate(-50%, -50%);
+    height: 50px;
+    width: 50px;
+    border: 2px solid rgba(220, 38, 38, 0.7);
+    clip-path: polygon(50% 0, 62% 17%, 86% 8%, 78% 34%, 100% 50%, 78% 63%, 88% 91%, 58% 79%, 40% 100%, 34% 76%, 4% 84%, 17% 57%, 0 40%, 24% 31%, 17% 6%, 42% 18%);
+    animation: cursor-ink-spin 1.6s steps(2, end) infinite;
+  }
+
+  .psychic-cursor-ink {
+    @apply absolute left-1/2 top-1/2 block h-5 w-5 bg-black;
+    transform: translate(-50%, -50%) rotate(-12deg);
+    clip-path: polygon(50% 0, 83% 13%, 100% 50%, 76% 85%, 40% 100%, 8% 74%, 0 34%, 22% 8%);
+    box-shadow:
+      0 0 0 2px white,
+      0 0 0 4px #dc2626,
+      0 0 16px rgba(220, 38, 38, 0.8);
+    animation: cursor-ink-jitter 0.45s steps(2, end) infinite;
+  }
+
+  .psychic-cursor-glitch {
+    @apply absolute left-1/2 top-1/2 block h-4 w-4;
+    transform: translate(-50%, -50%);
+    clip-path: polygon(50% 0, 83% 13%, 100% 50%, 76% 85%, 40% 100%, 8% 74%, 0 34%, 22% 8%);
+  }
+
+  .psychic-cursor-glitch-red {
+    background: #ef4444;
+    animation: cursor-glitch-red 0.7s steps(2, end) infinite;
+  }
+
+  .psychic-cursor-glitch-orange {
+    background: #f97316;
+    animation: cursor-glitch-orange 0.9s steps(2, end) infinite;
+  }
+
+  .psychic-cursor-drop {
+    @apply absolute block rounded-full bg-red-600;
+    box-shadow: 0 0 7px rgba(220, 38, 38, 0.8);
+  }
+
+  .psychic-cursor-drop-one {
+    height: 5px;
+    width: 5px;
+    left: 3px;
+    top: 3px;
+    animation: cursor-drop-one 1.1s ease-in-out infinite;
+  }
+
+  .psychic-cursor-drop-two {
+    height: 3px;
+    width: 3px;
+    right: 1px;
+    top: 11px;
+    background: #f97316;
+    animation: cursor-drop-two 0.8s ease-in-out infinite;
+  }
+
+  .psychic-cursor-drop-three {
+    height: 4px;
+    width: 4px;
+    bottom: 0;
+    left: 13px;
+    animation: cursor-drop-three 1.3s ease-in-out infinite;
+  }
+
+  .psychic-cursor-label {
+    @apply absolute left-1/2 top-1/2 font-anton text-[8px] text-white;
+    transform: translate(-50%, -50%) rotate(-12deg);
+    text-shadow: 1px 1px 0 #000;
+  }
+
+  .psychic-cursor-label::after {
+    content: '???';
+  }
+
+  .psychic-cursor-label {
+    font-size: 0;
+  }
+
+  .psychic-cursor-label::after {
+    font-size: 8px;
+  }
+
+  [data-psychic-power='100'] .psychic-cursor {
+    filter: saturate(1.7) contrast(1.25);
+    mix-blend-mode: normal;
+  }
+
+  [data-psychic-power='100'] .psychic-cursor::before {
+    border-color: #000;
+    box-shadow:
+      0 0 0 2px #fff,
+      0 0 0 4px #dc2626,
+      0 0 18px rgba(220, 38, 38, 0.9);
+    animation-duration: 0.45s;
+  }
+
+  [data-psychic-power='100'] .psychic-cursor-ink {
+    background: #000;
+    box-shadow:
+      0 0 0 2px #fff,
+      0 0 0 5px #dc2626,
+      0 0 24px rgba(220, 38, 38, 0.9);
+    animation-duration: 0.16s;
+  }
+
+  [data-psychic-power='100'] .psychic-cursor-glitch-red {
+    background: #fff;
+  }
+
+  [data-psychic-power='100'] .psychic-cursor-glitch-orange {
+    background: #facc15;
+  }
+
+  [data-psychic-power='100'] .psychic-cursor-label::after {
+    content: '100%';
+  }
+
   .psychic-loader {
-    @apply fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-zinc-950 text-white;
+    @apply fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-white text-black dark:bg-zinc-950 dark:text-white;
     isolation: isolate;
-    animation: loader-enter 0.5s ease-out both;
+    background-image: radial-gradient(circle, #000 1.5px, transparent 2px);
+    background-size: 12px 12px;
+    animation: loader-enter 0.2s steps(2, end) both;
+  }
+
+  .dark .psychic-loader {
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.15) 1.5px,
+      transparent 2px
+    );
   }
 
   .psychic-loader-leaving {
@@ -37,70 +176,36 @@
   }
 
   .psychic-loader-noise {
-    @apply absolute inset-0 pointer-events-none;
-    opacity: 0.12;
-    background-image: repeating-linear-gradient(
-      0deg,
-      transparent 0,
-      transparent 3px,
-      #fff 4px,
-      transparent 5px
-    );
-    mix-blend-mode: screen;
-    animation: loader-scan 0.7s linear infinite;
+    display: none;
   }
 
   .psychic-loader-aura {
-    @apply absolute left-1/2 top-1/2;
-    width: min(78vw, 620px);
-    aspect-ratio: 1;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba(239, 68, 68, 0.24) 0,
-      rgba(239, 68, 68, 0.08) 26%,
-      transparent 63%
-    );
-    filter: blur(1px);
-    animation: loader-breathe 1.2s ease-in-out infinite alternate;
+    display: none;
   }
 
   .psychic-loader-aura span {
-    @apply absolute left-1/2 top-1/2;
-    width: 63%;
-    aspect-ratio: 1;
-    border: 2px solid rgba(248, 113, 113, 0.75);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) rotate(15deg) scaleY(0.35);
-    box-shadow: 0 0 24px rgba(239, 68, 68, 0.8);
-    animation: loader-ring 2.4s ease-in-out infinite;
+    display: none;
   }
 
   .psychic-loader-aura span:nth-child(2) {
-    width: 78%;
-    transform: translate(-50%, -50%) rotate(-35deg) scaleY(0.35);
-    animation-delay: -0.8s;
+    display: none;
   }
 
   .psychic-loader-aura span:nth-child(3) {
-    width: 48%;
-    border-color: rgba(251, 146, 60, 0.85);
-    transform: translate(-50%, -50%) rotate(70deg) scaleY(0.35);
-    animation-delay: -1.5s;
+    display: none;
   }
 
   .psychic-loader-aura b {
-    @apply absolute left-1/2 top-1/2 font-anton text-5xl text-red-500 md:text-7xl;
-    transform: translate(-50%, -50%) rotate(-8deg);
-    text-shadow:
-      4px 4px 0 #000,
-      0 0 25px rgba(239, 68, 68, 0.9);
-    animation: loader-flicker 0.9s steps(2, end) infinite;
+    display: none;
   }
 
   .psychic-loader-content {
-    @apply relative z-10 w-[min(82vw,420px)];
+    @apply relative z-10 w-[min(88vw,520px)] border-4 border-black bg-white p-5 dark:border-zinc-300 dark:bg-zinc-950 sm:p-8;
+    box-shadow: 8px 8px 0 #000;
+  }
+
+  .dark .psychic-loader-content {
+    box-shadow: 8px 8px 0 var(--color-zinc-300);
   }
 
   .psychic-loader-kicker,
@@ -109,25 +214,21 @@
   }
 
   .psychic-loader-kicker {
-    @apply mb-3 text-center;
+    @apply mb-5 border-b-2 border-black pb-3 text-left dark:border-zinc-300;
   }
 
   .psychic-loader-content h1 {
-    @apply m-0 text-center font-anton text-[clamp(4rem,18vw,8rem)] uppercase leading-[0.8] tracking-tight text-white;
-    text-shadow:
-      5px 5px 0 #dc2626,
-      -2px -2px 0 #f97316;
-    animation: loader-title 1.1s steps(2, end) infinite;
+    @apply m-0 text-left font-anton text-[clamp(4rem,18vw,8rem)] uppercase leading-[0.8] tracking-tight text-black dark:text-white;
+    letter-spacing: -0.04em;
   }
 
   .psychic-loader-meter {
-    @apply mt-10 h-3 border-2 border-white bg-black p-0.5;
-    box-shadow: 5px 5px 0 #dc2626;
+    @apply mt-8 h-5 border-2 border-black bg-white p-0.5 dark:border-white dark:bg-black;
   }
 
   .psychic-loader-meter span {
     @apply block h-full bg-red-500;
-    box-shadow: 0 0 14px #ef4444;
+    background: #dc2626;
     transition: width 80ms linear;
   }
 
@@ -136,7 +237,7 @@
   }
 
   .psychic-loader-readout strong {
-    @apply font-anton text-2xl tracking-normal text-white;
+    @apply font-anton text-2xl tracking-normal text-black dark:text-white;
   }
 
   .theme-manga {
@@ -487,13 +588,107 @@
       }
     }
 
+    @keyframes cursor-ink-spin {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg) scale(0.9);
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1.12);
+      }
+    }
+
+    @keyframes cursor-ink-jitter {
+      from {
+        transform: translate(-50%, -50%) rotate(-12deg);
+      }
+      to {
+        transform: translate(-47%, -53%) rotate(-8deg);
+      }
+    }
+
+    @keyframes cursor-glitch-red {
+      from {
+        opacity: 0.2;
+        transform: translate(-85%, -30%);
+      }
+      to {
+        opacity: 0.8;
+        transform: translate(-10%, -70%);
+      }
+    }
+
+    @keyframes cursor-glitch-orange {
+      0%,
+      100% {
+        opacity: 0.2;
+        transform: translate(-10%, -80%);
+      }
+      50% {
+        opacity: 0.7;
+        transform: translate(-85%, -20%);
+      }
+    }
+
+    @keyframes cursor-drop-one {
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: translate(0, 0) scale(0.6);
+      }
+      50% {
+        opacity: 0.8;
+        transform: translate(-8px, -7px) scale(1);
+      }
+    }
+
+    @keyframes cursor-drop-two {
+      0%,
+      100% {
+        opacity: 0.2;
+        transform: translate(0, 0);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translate(8px, 5px);
+      }
+    }
+
+    @keyframes cursor-drop-three {
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: translate(0, 0) scale(0.7);
+      }
+      50% {
+        opacity: 0.85;
+        transform: translate(-4px, 7px) scale(1);
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .psychic-loader *,
-      .psychic-loader {
+      .psychic-loader,
+      .psychic-cursor * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
+    }
+
+    @media (pointer: coarse) {
+      .psychic-cursor {
+        display: none;
+      }
+    }
+  }
+
+  @media (pointer: fine) {
+    html,
+    body,
+    a,
+    button,
+    [role='button'] {
+      cursor: none;
     }
   }
 }
