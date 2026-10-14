@@ -50,7 +50,7 @@ function RootDocument() {
 
         scrollInstance = new LocomotiveScroll({
           lenisOptions: {
-            lerp: 0.05,
+            lerp: 0.8,
             smoothWheel: true,
           },
         })
